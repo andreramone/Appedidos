@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: appedidos
+    image: postgres
+    environment:
+      POSTGRES_DB: appedidos
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+       - postgres:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    command: ['redis-server']
+    volumes:
+      - data-redis:/data
+
+volumes:
+    postgres:
+    data-redis:
